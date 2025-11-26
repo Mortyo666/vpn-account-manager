@@ -24,25 +24,11 @@ case $choice in
     echo "Останавливаем интерфейс wg00..."
     wg-quick down wg00
 
-    echo "Удаляем текущий конфигурационный файл..."
+    echo "Удаляем конфигурационный файл..."
     rm -f /etc/wireguard/wg00.conf
 
-    echo "Создаем конфигурацию для $count учёток..."
-    echo "[Interface]" > /etc/wireguard/wg00.conf
-    echo "PrivateKey = <ваш_private_key>" >> /etc/wireguard/wg00.conf
-    echo "Address = 10.0.0.1/24" >> /etc/wireguard/wg00.conf
-
-    for i in $(seq 1 $count); do
-      ip=$((i + 1))
-      echo "" >> /etc/wireguard/wg00.conf
-      echo "[Peer]" >> /etc/wireguard/wg00.conf
-      echo "PublicKey = ключ_$i" >> /etc/wireguard/wg00.conf
-      echo "AllowedIPs = 10.0.0.$ip/32" >> /etc/wireguard/wg00.conf
-      echo "Добавлен клиент $i с IP 10.0.0.$ip"
-    done
-
-    echo "Запускаем вспомогательный скрипт /usr/local/openvpn_scripts/wg.sh..."
-    bash /usr/local/openvpn_scripts/wg.sh
+    echo "Генерируем $count учёток через wg.sh..."
+    bash /usr/local/openvpn_scripts/wg.sh $count
 
     echo "Поднимаем интерфейс wg00..."
     wg-quick up wg00
