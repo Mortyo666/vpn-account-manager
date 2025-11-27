@@ -1,9 +1,11 @@
 #!/bin/bash
 
+while true; do
 echo "Выберите действие:"
 echo "1) Создать учётки OVPN (+5)"
 echo "2) Создать учётки WG"
 echo "3) IP1>IP2"
+echo "0) Выход"
 
 read -r choice </dev/tty
 
@@ -11,7 +13,6 @@ case $choice in
   1)
     echo "Запуск скрипта создания учёток OVPN..."
             python /usr/local/openvpn_scripts/menu.py < /dev/tty > /dev/tty 2>&1
-                    exit 0
     ;;
   2)
     echo "Создание учёток WireGuard"
@@ -84,8 +85,12 @@ case $choice in
     
     echo "Готово! IP-адреса заменены во всех конфигурациях."
     ;;
+        0)
+        echo "Выход из скрипта..."
+        exit 0
+        ;;
   *)
     echo "Неверный выбор. Пожалуйста, запустите скрипт заново и выберите 1, 2 или 3."
-    exit 1
     ;;
 esac
+done
