@@ -10,7 +10,7 @@ read -r choice </dev/tty
 case $choice in
   1)
     echo "Запуск скрипта создания учёток OVPN..."
-    python /usr/local/openvpn_scripts/menu.py </dev/tty
+    exec python /usr/local/openvpn_scripts/menu.py 
     ;;
   2)
     echo "Создание учёток WireGuard"
